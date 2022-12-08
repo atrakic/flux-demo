@@ -8,5 +8,10 @@ all:
 		--path=./clusters/my-cluster \
 		--personal
 
+status:
+	 flux get sources all --all-namespaces
+	 flux get helmreleases --all-namespaces
+	 # TODO
+
 clean:
 	kind delete cluster

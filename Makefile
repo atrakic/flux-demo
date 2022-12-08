@@ -7,3 +7,6 @@ all:
 		--branch=$(shell git branch --show-current) \
 		--path=./clusters/my-cluster \
 		--personal
+
+clean:
+	kind delete cluster

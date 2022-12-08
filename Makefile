@@ -1,17 +1,21 @@
 GITHUB_USER := atrakic
+CLUSTER := my-cluster
 
-all:
+all: sync
 	kind create cluster || true
-	flux bootstrap github --owner=$(GITHUB_USER) \
+	flux bootstrap github \
+	    --owner=$(GITHUB_USER) \
 		--repository=$(shell basename $$PWD) \
 		--branch=$(shell git branch --show-current) \
-		--path=./clusters/my-cluster \
+		--path=./clusters/$(CLUSTER) \
 		--personal
 
 status:
-	 flux get sources all --all-namespaces
-	 flux get helmreleases --all-namespaces
+	 flux get all --all-namespaces
+	 
+sync reconcile:	status
 	 flux reconcile kustomization flux-system --with-source
+	 flux get all --all-namespaces
 
 clean:
 	kind delete cluster

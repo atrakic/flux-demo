@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  kubernetes:
+  kind-e2e:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,11 +22,16 @@ jobs:
         uses: engineerd/setup-kind@v0.5.0
         with:
           version: v0.11.1
+        
+      - name: Do all
+        run: make all
 
       - name: Install Flux in Kubernetes Kind
+        if: false
         run: flux install
 
       - name: Setup cluster reconciliation
+        if: false
         run: |
           kubectl apply -f - <<EOF > cat
           apiVersion: source.toolkit.fluxcd.io/v1beta2

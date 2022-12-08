@@ -9,10 +9,17 @@ on:
 
 permissions:
   contents: read
+  permissions: write-all ##
 
 jobs:
   kind-e2e:
     runs-on: ubuntu-latest
+    #services:
+    #  registry:
+    #    image: registry:2
+    #    ports:
+    #      - 5000:5000
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -22,6 +29,8 @@ jobs:
         uses: engineerd/setup-kind@v0.5.0
         with:
           version: v0.11.1
+          #image: kindest/node:v1.20.7
+          #config: .github/kind/config.yaml # disable KIND-net          
         
       - name: Make
         run: |
@@ -29,6 +38,14 @@ jobs:
           make bootstrap
           make status
           make reconcile
+
+      - name: Check if working tree is dirty
+        run: |
+          if [[ $(git diff --stat) != '' ]]; then
+            git diff
+            echo 'run make test and commit changes'
+            exit 1
+          fi
 
       - name: Install Flux in Kubernetes Kind
         if: false

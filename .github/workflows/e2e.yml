@@ -23,8 +23,11 @@ jobs:
         with:
           version: v0.11.1
         
-      - name: Do all
-        run: make all
+      - name: Make
+        run: |
+          make bootstrap
+          make status
+          make reconcile
 
       - name: Install Flux in Kubernetes Kind
         if: false

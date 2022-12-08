@@ -1,7 +1,7 @@
 GITHUB_USER := atrakic
 CLUSTER := my-cluster
 
-all: sync
+bootstrap:
 	kind create cluster || true
 	flux bootstrap github \
 	    --owner=$(GITHUB_USER) \
@@ -13,7 +13,7 @@ all: sync
 status:
 	 flux get all --all-namespaces
 	 
-sync reconcile:	status
+sync reconcile:
 	 flux reconcile kustomization flux-system --with-source
 	 flux get all --all-namespaces
 

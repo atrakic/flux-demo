@@ -25,6 +25,7 @@ jobs:
         
       - name: Make
         run: |
+          export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
           make bootstrap
           make status
           make reconcile

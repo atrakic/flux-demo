@@ -11,7 +11,7 @@ all:
 status:
 	 flux get sources all --all-namespaces
 	 flux get helmreleases --all-namespaces
-	 # TODO
+	 flux reconcile kustomization flux-system --with-source
 
 clean:
 	kind delete cluster

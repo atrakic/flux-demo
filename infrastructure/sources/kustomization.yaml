@@ -5,3 +5,4 @@ resources:
   - cert-manager.yaml
   - tf-controller.yaml
   - ingress-nginx.yaml
+  - prometheus-community.yaml

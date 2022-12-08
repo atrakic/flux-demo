@@ -23,7 +23,7 @@ jobs:
             --export > ./clusters/${{ env.CLUSTER }}/flux-system/gotk-components.yaml
           
           VERSION="$(flux -v)"
-          echo "lux_version=$VERSION" >> $GITHUB_OUTPUT
+          echo "flux_version=$VERSION" >> $GITHUB_OUTPUT
       
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3

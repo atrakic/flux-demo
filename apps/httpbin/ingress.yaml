@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   creationTimestamp: null
   name: httpbin
+  namespace: httpbin
 spec:
   ingressClassName: nginx
   rules:

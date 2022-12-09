@@ -5,6 +5,7 @@ metadata:
   labels:
     app: httpbin
   name: httpbin
+  namespace: httpbin
 spec:
   replicas: 3
   selector:

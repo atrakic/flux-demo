@@ -1,22 +1,16 @@
-# adjusted from https://raw.githubusercontent.com/stefanprodan/gitops-istio/main/.github/workflows/e2e.yaml
 name: e2e
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ '*' ]
-    tags-ignore: [ '*' ]
+  #push:
+  #  branches: [ '*' ]
+  #  tags-ignore: [ '*' ]
 
 permissions: write-all ##
 
 jobs:
   kind-e2e:
     runs-on: ubuntu-latest
-    #services:
-    #  registry:
-    #    image: registry:2
-    #    ports:
-    #      - 5000:5000
     
     steps:
       - name: Checkout
@@ -27,12 +21,10 @@ jobs:
         uses: engineerd/setup-kind@v0.5.0
         with:
           version: v0.11.1
-          #image: kindest/node:v1.20.7
-          #config: .github/kind/config.yaml # disable KIND-net          
         
       - name: Make
         run: |
-          export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          export GITHUB_TOKEN=${{ secrets.PAT }}
           make bootstrap
           make status
           make reconcile
@@ -44,68 +36,6 @@ jobs:
             echo 'run make test and commit changes'
             exit 1
           fi
-
-      - name: Install Flux in Kubernetes Kind
-        if: false
-        run: flux install
-
-      - name: Setup cluster reconciliation
-        if: false
-        run: |
-          kubectl apply -f - <<EOF > cat
-          apiVersion: source.toolkit.fluxcd.io/v1beta2
-          kind: GitRepository
-          metadata:
-            name: flux-system
-            namespace: flux-system
-          spec:
-            interval: 15m
-            ref:
-              branch: ${GITHUB_REF#refs/heads/}
-            url: ${{ github.event.repository.html_url }}
-            ignore: |
-              /clusters/my-cluster/flux-system/
-          EOF
-          
-          kubectl -n flux-system wait gitrepository/flux-system --for=condition=ready --timeout=1m
-          
-          flux create kustomization flux-system \
-          --source=flux-system \
-          --path=./clusters/my-cluster
-      
-      - name: Verify cluster reconciliation
-        if: false
-        run: |
-          kubectl -n flux-system wait kustomization/istio-system --for=condition=ready --timeout=2m
-          kubectl -n flux-system wait kustomization/istio-gateway --for=condition=ready --timeout=2m
-          kubectl -n flux-system wait kustomization/apps --for=condition=ready --timeout=2m
-          kubectl -n prod wait canary/frontend --for=condition=promoted --timeout=1m
-          kubectl -n prod rollout status deployment/frontend --timeout=1m
-          kubectl -n prod wait canary/backend --for=condition=promoted --timeout=1m
-          kubectl -n prod rollout status deployment/backend --timeout=1m
-      
-      - name: List Flux managed objects
-        run: |
-          flux get all --all-namespaces
-
-      - name: Test canary release
-        if: false
-        run: |
-          kubectl -n prod set image deployment/backend backend=ghcr.io/stefanprodan/podinfo:6.1.1
-          echo '>>> Waiting for canary finalization'
-          retries=25
-          count=0
-          ok=false
-          until ${ok}; do
-              kubectl -n prod get canary/backend | grep 'Succeeded' && ok=true || ok=false
-              sleep 20
-              kubectl -n istio-system logs deployment/flagger --tail 1
-              count=$(($count + 1))
-              if [[ ${count} -eq ${retries} ]]; then
-                  echo "No more retries left"
-                  exit 1
-              fi
-          done
 
       - name: Debug failure
         if: failure()

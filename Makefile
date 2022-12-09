@@ -14,6 +14,7 @@ bootstrap: kind
 
 status:
 	 flux get all --all-namespaces
+	 kubectl get terraform  -n flux-system -o yaml
 
 status-not-ready:
 	flux get all -A --status-selector ready=false

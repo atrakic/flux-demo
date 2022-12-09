@@ -14,6 +14,9 @@ bootstrap: kind
 
 status:
 	 flux get all --all-namespaces
+
+status-not-ready:
+	flux get all -A --status-selector ready=false
 	 
 sync reconcile:
 	 flux reconcile kustomization flux-system --with-source

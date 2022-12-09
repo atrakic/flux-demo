@@ -27,6 +27,7 @@ spec:
       service:
         type: "NodePort"
       watchIngressWithoutClass: true
+      # kinD
       nodeSelector:
         ingress-ready: "true"
       tolerations:
@@ -39,7 +40,7 @@ spec:
         publish-status-address: "localhost"
     metrics:
       port: 10254
-      enabled: true
+      enabled: false # true
       service:
         annotations:
           prometheus.io/scrape: "true"

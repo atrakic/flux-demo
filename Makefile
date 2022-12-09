@@ -1,8 +1,10 @@
 GITHUB_USER := atrakic
 CLUSTER := my-cluster
+	
+kind:
+	kind create cluster --config=config/kind.yaml || true
 
-bootstrap:
-	kind create cluster || true
+bootstrap: kind
 	flux bootstrap github \
 	    --owner=$(GITHUB_USER) \
 		--repository=$(shell basename $$PWD) \

@@ -19,5 +19,11 @@ sync reconcile:
 	 flux reconcile kustomization flux-system --with-source
 	 flux get all --all-namespaces
 
+controller-logs: 
+	kubectl -n flux-system logs deploy/source-controller | tail -n 20
+	kubectl -n flux-system logs deploy/kustomize-controller | tail -n 20
+	kubectl -n flux-system logs deploy/helm-controller | tail -n 20
+
 clean:
 	kind delete cluster
+

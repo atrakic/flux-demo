@@ -1,2 +1,2 @@
 # flux-demo
-> Status: :construction: work in progress :construction:
+Status: :construction: work in progress :construction:

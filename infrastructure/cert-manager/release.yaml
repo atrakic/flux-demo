@@ -13,7 +13,8 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: cert-manager
-        namespace: cert-manager
+        namespace: flux-system # cert-manager
       interval: 12h
+  #targetNamespace: flux-system
   values:
     installCRDs: true

@@ -1,17 +1,31 @@
 GITHUB_USER := atrakic
-
-all:
-	kind create cluster || true
-	flux bootstrap github --owner=$(GITHUB_USER) \
-		--repository=$(shell basename $$PWD) \
-		--branch=$(shell git branch --show-current) \
-		--path=./clusters/my-cluster \
-		--personal
+CLUSTER := my-cluster
 
 status:
-	 flux get sources all --all-namespaces
-	 flux get helmreleases --all-namespaces
-	 # TODO
+	 flux get all --all-namespaces
+
+kind:
+	kind create cluster --config=config/kind.yaml || true
+	flux check --pre
+
+bootstrap: kind
+	flux bootstrap github \
+    --owner=$(GITHUB_USER) \
+		--repository=$(shell basename $$PWD) \
+		--branch=$(shell git branch --show-current) \
+		--path=./clusters/$(CLUSTER) \
+		--personal
+
+sync reconcile:
+	 flux reconcile kustomization flux-system --with-source
+	 flux get all --all-namespaces
 
 clean:
 	kind delete cluster
+
+test: ## Test app
+	[ -f ./tests/test.sh ] && ./tests/test.sh
+
+.PHONY: test clean sync reconcile bootstrap kind status
+
+-include include.mk

@@ -3,7 +3,8 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: ingress-nginx
-  namespace: ingress-nginx
+  namespace: flux-system
+  #namespace: ingress-nginx
 spec:
   interval: 30m
   chart:
@@ -13,8 +14,9 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: ingress-nginx
-        namespace: ingress-nginx
+        namespace: flux-system
       interval: 12h
+  # helm show values ingress-nginx/ingress-nginx 
   values:
     controller:
       updateStrategy:
@@ -27,6 +29,7 @@ spec:
       service:
         type: "NodePort"
       watchIngressWithoutClass: true
+      # kinD
       nodeSelector:
         ingress-ready: "true"
       tolerations:
@@ -39,7 +42,7 @@ spec:
         publish-status-address: "localhost"
     metrics:
       port: 10254
-      enabled: true
+      enabled: false # true
       service:
         annotations:
           prometheus.io/scrape: "true"

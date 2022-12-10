@@ -51,10 +51,10 @@ metadata:
     cert-manager.io/cluster-issuer: "self-signed"
 spec:
   ingressClassName: nginx
-  tls:
-    - hosts:
-        - grafana.flux.local
-      secretName: grafana-ingress-tls
+  #tls:
+  #  - hosts:
+  #      - grafana.flux.local
+  #    secretName: grafana-ingress-tls
   rules:
     - host: grafana.flux.local
       http:

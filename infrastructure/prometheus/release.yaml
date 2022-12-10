@@ -27,7 +27,7 @@ spec:
     alertmanager:
       enabled: false
     grafana:
-      adminPassword: flux
+      adminPassword: admin
     prometheus:
       prometheusSpec:
         retention: 24h

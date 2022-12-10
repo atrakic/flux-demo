@@ -4,4 +4,10 @@ resources:
   - sources
   - ingress-nginx
   - prometheus
-  - cert-manager
+# TODO
+#  - cert-manager
+# - external-dns
+# - linkerd
+# - sealed-secrets
+# - open-telemetry
+# - calico

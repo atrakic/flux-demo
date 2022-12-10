@@ -23,4 +23,9 @@ sync reconcile:
 clean:
 	kind delete cluster
 
+test: ## Test app
+	[ -f ./tests/test.sh ] && ./tests/test.sh
+
+.PHONY: test clean sync reconcile bootstrap kind status
+
 -include include.mk

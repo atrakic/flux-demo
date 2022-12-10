@@ -1,6 +1,10 @@
 GITHUB_USER := atrakic
 CLUSTER := my-cluster
-	
+
+status:
+	 flux get all --all-namespaces
+	 kubectl get GitRepository,Kustomization,HelmRelease,HelmChart,OCIRepository -A
+
 kind:
 	kind create cluster --config=config/kind.yaml || true
 
@@ -12,9 +16,6 @@ bootstrap: kind
 		--path=./clusters/$(CLUSTER) \
 		--personal
 
-status:
-	 flux get all --all-namespaces
-	 
 sync reconcile:
 	 flux reconcile kustomization flux-system --with-source
 	 flux get all --all-namespaces

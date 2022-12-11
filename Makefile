@@ -14,8 +14,12 @@ bootstrap: kind
 		--repository=$(shell basename $$PWD) \
 		--branch=$(shell git branch --show-current) \
 		--path=./clusters/$(CLUSTER) \
+		--private=false \
 		--personal
 
+status:
+	 flux get all --all-namespaces
+	 
 sync reconcile:
 	 flux reconcile kustomization flux-system --with-source
 	 flux get all --all-namespaces

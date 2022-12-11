@@ -17,9 +17,6 @@ bootstrap: kind
 		--private=false \
 		--personal
 
-status:
-	 flux get all --all-namespaces
-	 
 sync reconcile:
 	 flux reconcile kustomization flux-system --with-source
 	 flux get all --all-namespaces

@@ -1,12 +1,12 @@
 GITHUB_USER := atrakic
 CLUSTER := my-cluster
 
-status:
-	 flux get all --all-namespaces
-
 kind:
 	kind create cluster --config=config/kind.yaml || true
 	flux check --pre
+
+status:
+	 flux get all --all-namespaces
 
 bootstrap: kind
 	flux bootstrap github \
@@ -16,6 +16,7 @@ bootstrap: kind
 		--path=./clusters/$(CLUSTER) \
 		--private=false \
 		--personal
+	kubectl -n flux-system wait gitrepository/flux-system --for=condition=ready --timeout=1m
 
 sync reconcile:
 	 flux reconcile kustomization flux-system --with-source

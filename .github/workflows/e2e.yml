@@ -44,9 +44,3 @@ jobs:
           kubectl -n flux-system logs deploy/source-controller
           kubectl -n flux-system logs deploy/kustomize-controller
           kubectl -n flux-system logs deploy/helm-controller
-          #kubectl -n istio-system logs deployment/flagger
-          #kubectl -n istio-operator get all
-          #kubectl -n istio-system get all
-          #kubectl -n prod get all
-          #kubectl -n prod describe deployment backend
-          #kubectl -n prod logs -l app=backend --all-containers=true

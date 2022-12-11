@@ -10,10 +10,11 @@ kind:
 
 bootstrap: kind
 	flux bootstrap github \
-    --owner=$(GITHUB_USER) \
+		--owner=$(GITHUB_USER) \
 		--repository=$(shell basename $$PWD) \
 		--branch=$(shell git branch --show-current) \
 		--path=./clusters/$(CLUSTER) \
+		--private=false \
 		--personal
 
 sync reconcile:

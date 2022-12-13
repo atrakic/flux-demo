@@ -3,9 +3,9 @@ kind: Kustomization
 resources:
   - sources
   - ingress-nginx
+  - prometheus
+  - cert-manager
 # TODO
-#  - prometheus
-#  - cert-manager
 # - external-dns
 # - linkerd
 # - sealed-secrets

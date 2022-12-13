@@ -5,3 +5,4 @@ resources:
   - cert-manager.yaml
   - ingress-nginx.yaml
   - prometheus.yaml
+  - weave-gitops.yaml

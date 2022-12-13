@@ -42,7 +42,7 @@ spec:
         publish-status-address: "localhost"
     metrics:
       port: 10254
-      enabled: false # true
+      enabled: true
       service:
         annotations:
           prometheus.io/scrape: "true"

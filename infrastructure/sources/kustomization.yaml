@@ -6,3 +6,5 @@ resources:
   - ingress-nginx.yaml
   - prometheus.yaml
   - weave-gitops.yaml
+  - external-dns.yaml
+  - metallb.yaml

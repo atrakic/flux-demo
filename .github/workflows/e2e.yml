@@ -18,17 +18,18 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup Flux
         uses: fluxcd/flux2/action@main
-      - name: Setup Kubernetes
-        uses: engineerd/setup-kind@v0.5.0
+      
+      - name: KinD
+        uses: helm/kind-action@v1.5.0
         with:
-          version: v0.11.1
+          config: config/kind.yaml
+          cluster_name: kind
+          install_only: true
         
       - name: Make
         run: |
           export GITHUB_TOKEN=${{ secrets.PAT }}
-          make bootstrap
-          make status
-          make reconcile
+          make all
 
       - name: Check if working tree is dirty
         run: |

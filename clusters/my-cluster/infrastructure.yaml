@@ -4,9 +4,11 @@ metadata:
   name: infrastructure
   namespace: flux-system
 spec:
-  interval: 10m0s
+  interval: 60m0s # detect drift and undo kubectl edits
+  prune: true # remove stale resources from cluster
+  wait: true # wait for all applied resources to become ready
+  timeout: 5m0s # give up waiting after three minutes
   sourceRef:
     kind: GitRepository
     name: flux-system
   path: ./infrastructure
-  prune: true

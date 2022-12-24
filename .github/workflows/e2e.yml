@@ -24,17 +24,12 @@ jobs:
         with:
           config: config/kind.yaml
           cluster_name: kind
+          install_only: true
         
       - name: Make
         run: |
           export GITHUB_TOKEN=${{ secrets.PAT }}
-          make bootstrap
-          make status
-          make reconcile
-      
-      - name: Test
-        run: |
-          make test
+          make all
 
       - name: Check if working tree is dirty
         run: |

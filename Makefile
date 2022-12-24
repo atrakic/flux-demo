@@ -1,7 +1,8 @@
-GITHUB_USER := atrakic
-CLUSTER := my-cluster
-
+MAKEFLAGS += --silent
 .DEFAULT_GOAL := help
+
+GITHUB_USER ?= atrakic
+CLUSTER ?= my-cluster
 
 all: kind bootstrap sync test status ## Do all
 
@@ -9,10 +10,15 @@ kind:
 	kind create cluster --config=config/kind.yaml || true
 	flux check --pre
 
+# Needed to ensure tests step dont fail
+load_image: ## Load ci image under test
+	docker pull kennethreitz/httpbin:latest
+	kind load docker-image kennethreitz/httpbin:latest
+
 status:
 	 flux get all --all-namespaces
 
-bootstrap: kind
+bootstrap: kind load_image ## Flux bootsrap github repo
 	flux bootstrap github \
 		--owner=$(GITHUB_USER) \
 		--repository=$(shell basename $$PWD) \

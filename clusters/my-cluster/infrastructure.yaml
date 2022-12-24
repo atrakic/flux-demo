@@ -6,6 +6,7 @@ metadata:
 spec:
   interval: 10m0s # detect drift and undo kubectl edits
   prune: true # remove stale resources from cluster
+  wait: true # wait for all applied resources to become ready
   sourceRef:
     kind: GitRepository
     name: flux-system

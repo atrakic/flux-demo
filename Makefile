@@ -31,7 +31,7 @@ clean:
 	kind delete cluster
 
 test: ## Test app
-	kubectl wait --for=condition=Ready pods --all --all-namespaces --timeout=300s
+	#kubectl wait --for=condition=Ready pods --all --all-namespaces --timeout=300s
 	[ -f ./tests/test.sh ] && ./tests/test.sh
 
 help:  ## Display this help menu

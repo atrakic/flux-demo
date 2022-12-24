@@ -1,6 +1,10 @@
 GITHUB_USER := atrakic
 CLUSTER := my-cluster
 
+.DEFAULT_GOAL := help
+
+all: kind bootstrap sync test status ## Do all
+
 kind:
 	kind create cluster --config=config/kind.yaml || true
 	flux check --pre
@@ -17,6 +21,7 @@ bootstrap: kind
 		--private=false \
 		--personal
 	kubectl -n flux-system wait gitrepository/flux-system --for=condition=ready --timeout=1m
+	flux version
 
 sync reconcile:
 	 flux reconcile kustomization flux-system --with-source
@@ -26,8 +31,12 @@ clean:
 	kind delete cluster
 
 test: ## Test app
+	kubectl wait --for=condition=Ready pods --all --all-namespaces --timeout=300s
 	[ -f ./tests/test.sh ] && ./tests/test.sh
 
-.PHONY: test clean sync reconcile bootstrap kind status
+help:  ## Display this help menu
+	awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_0-9-]+:.*?##/ { printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+
+.PHONY: all test clean sync reconcile bootstrap kind status
 
 -include include.mk

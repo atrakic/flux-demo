@@ -3,6 +3,12 @@ MAKEFLAGS += --silent
 
 GITHUB_USER ?= atrakic
 CLUSTER ?= my-cluster
+BRANCH ?= $(shell git branch --show-current)
+
+# Required by flux-cli
+ifndef GITHUB_TOKEN
+$(error GITHUB_TOKEN is not set)
+endif
 
 all: kind bootstrap sync test status ## Do all
 
@@ -10,7 +16,6 @@ kind:
 	kind create cluster --config=config/kind.yaml || true
 	flux check --pre
 
-# Needed to ensure tests step dont fail
 load_image: ## Load ci image under test
 	docker pull kennethreitz/httpbin:latest
 	kind load docker-image kennethreitz/httpbin:latest
@@ -20,10 +25,10 @@ status:
 
 bootstrap: kind load_image ## Flux bootstrap github repo
 	flux bootstrap github \
-	    --components-extra=image-reflector-controller,image-automation-controller \
+		--components-extra=image-reflector-controller,image-automation-controller \
 		--owner=$(GITHUB_USER) \
 		--repository=$(shell basename $$PWD) \
-		--branch=$(shell git branch --show-current) \
+		--branch=$(BRANCH) \
 		--path=./clusters/$(CLUSTER) \
 		--private=false \
 		--personal

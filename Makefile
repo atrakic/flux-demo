@@ -18,8 +18,9 @@ load_image: ## Load ci image under test
 status:
 	 flux get all --all-namespaces
 
-bootstrap: kind load_image ## Flux bootsrap github repo
+bootstrap: kind load_image ## Flux bootstrap github repo
 	flux bootstrap github \
+	    --components-extra=image-reflector-controller,image-automation-controller \
 		--owner=$(GITHUB_USER) \
 		--repository=$(shell basename $$PWD) \
 		--branch=$(shell git branch --show-current) \

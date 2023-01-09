@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static-sample
+  namespace: static-sample
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: static-sample
+  template:
+    metadata:
+      labels:
+        app: static-sample
+    spec:
+      containers:
+        - image: mstruebing/static-sample:1666603774 # {"$imagepolicy": "static-sample:static-sample"}
+          imagePullPolicy: IfNotPresent
+          name: static-sample

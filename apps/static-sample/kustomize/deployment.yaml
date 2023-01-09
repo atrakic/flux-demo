@@ -15,6 +15,6 @@ spec:
         app: static-sample
     spec:
       containers:
-        - image: ghcr.io/atrakic/go-static-site:main # {"$imagepolicy": "static-sample:static-sample"}
+        - image: ghcr.io/atrakic/go-static-site:790736795bc652af2a93a091ebef86c3bc01d7eb # {"$imagepolicy": "static-sample:static-sample"}
           imagePullPolicy: IfNotPresent
           name: static-sample

@@ -6,3 +6,4 @@ scripts/
 .sourceignore
 LICENSE
 Makefile
+tmp/

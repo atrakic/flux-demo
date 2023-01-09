@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static-sample
+  namespace: static-sample
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: static-sample
+  template:
+    metadata:
+      labels:
+        app: static-sample
+    spec:
+      containers:
+        - image: ghcr.io/atrakic/go-static-site:790736795bc652af2a93a091ebef86c3bc01d7eb # {"$imagepolicy": "static-sample:static-sample"}
+          imagePullPolicy: IfNotPresent
+          name: static-sample

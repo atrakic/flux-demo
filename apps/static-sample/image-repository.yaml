@@ -1,0 +1,10 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: static-sample
+  namespace: static-sample
+spec:
+  image: ghcr.io/atrakic/go-static-site
+  interval: 1m0s
+

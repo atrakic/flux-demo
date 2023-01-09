@@ -1,8 +1,10 @@
 # Flux ignore
 # https://fluxcd.io/flux/components/source/gitrepositories/#excluding-files
+config/
 docs/
 scripts/
 *.md
 .sourceignore
 LICENSE
 Makefile
+tmp/

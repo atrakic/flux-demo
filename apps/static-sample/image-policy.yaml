@@ -1,0 +1,15 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: static-sample
+  namespace: static-sample
+spec:
+  imageRepositoryRef:
+    name: static-sample
+  filterTags:
+    pattern: '^main-[a-fA-F0-9]+-(?P<ts>.*)' # "^(?P<ts>.*)"
+    extract: "$ts"
+  policy:
+    numerical:
+      order: asc

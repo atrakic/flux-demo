@@ -8,7 +8,7 @@ spec:
   imageRepositoryRef:
     name: static-sample
   filterTags:
-    pattern: '^main-[a-fA-F0-9]+-(?P<ts>.*)' # "^(?P<ts>.*)"
+    pattern: '^sha-(?P<ts>.*)-.+'
     extract: "$ts"
   policy:
     numerical:

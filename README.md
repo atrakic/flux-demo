@@ -1,2 +1,2 @@
 # flux-demo
-Status: :construction: work in progress :construction:
+[![e2e](https://github.com/atrakic/flux-demo/actions/workflows/e2e.yml/badge.svg)](https://github.com/atrakic/flux-demo/actions/workflows/e2e.yml)

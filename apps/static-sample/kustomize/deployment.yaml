@@ -1,20 +1,23 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  creationTimestamp: null
+  labels:
+    app: static-sample
   name: static-sample
   namespace: static-sample
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: static-sample
+  strategy: {}
   template:
     metadata:
+      creationTimestamp: null
       labels:
         app: static-sample
     spec:
       containers:
-        - image: ghcr.io/atrakic/go-static-site:790736795bc652af2a93a091ebef86c3bc01d7eb # {"$imagepolicy": "static-sample:static-sample"}
-          imagePullPolicy: IfNotPresent
-          name: static-sample
+        - image: ghcr.io/atrakic/go-static-site:1673811703 # {"$imagepolicy": "flux-system:static-sample"}
+          name: go-static-site

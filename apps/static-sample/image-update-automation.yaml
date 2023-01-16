@@ -2,26 +2,25 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageUpdateAutomation
 metadata:
-  name: static-sample
-  namespace: static-sample
+  name: flux-system
+  namespace: flux-system
 spec:
   git:
     checkout:
       ref:
-        branch: main
+        branch: feature/use-go-static-site # main
     commit:
       author:
         email: fluxcdbot@users.noreply.github.com
         name: fluxcdbot
       messageTemplate: '{{range .Updated.Images}}{{println .}}{{end}}'
     push:
-      branch: main
+      branch: feature/use-go-static-site # main
   interval: 1m0s
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   update:
-    path: ./clusters/my-cluster ##
+    path: ./clusters/my-cluster
     strategy: Setters
-

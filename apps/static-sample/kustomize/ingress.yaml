@@ -1,19 +1,21 @@
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  creationTimestamp: null
   name: static-sample
   namespace: static-sample
 spec:
   ingressClassName: nginx
   rules:
-    - host: static.local
-      http:
-        paths:
-          - backend:
-              service:
-                name: static-sample
-                port:
-                  name: http
-            path: /
-            pathType: Prefix
+  - host: static-sample.local
+    http:
+      paths:
+      - backend:
+          service:
+            name: static-sample
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer: {}

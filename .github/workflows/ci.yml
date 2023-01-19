@@ -1,0 +1,19 @@
+name: Tests
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  manifests:
+    name: Validate Flux Manifests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup tools
+        uses: ./.github/actions/tools
+
+      - name: Validate manifests
+        run: ./scripts/validate.sh

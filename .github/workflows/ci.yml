@@ -16,4 +16,4 @@ jobs:
         uses: ./.github/actions/tools
 
       - name: Validate manifests
-        run: ./scripts/validate.sh
+        run: sh -x ./scripts/validate.sh

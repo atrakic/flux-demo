@@ -17,3 +17,4 @@ brew "fluxcd/tap/flux"
 # Other
 brew "sops"
 brew "gnupg"
+brew "kubeseal"

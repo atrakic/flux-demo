@@ -7,3 +7,4 @@ resources:
   - prometheus.yaml
   - weave-gitops.yaml
   - external-dns.yaml
+  - bitnami.yaml

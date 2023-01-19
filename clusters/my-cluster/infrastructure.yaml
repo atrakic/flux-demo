@@ -8,6 +8,8 @@ spec:
   prune: true # remove stale resources from cluster
   wait: true # wait for all applied resources to become ready
   timeout: 5m0s # give up waiting after three minutes
+  dependsOn:
+    - name: sources
   sourceRef:
     kind: GitRepository
     name: flux-system

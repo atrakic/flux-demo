@@ -13,12 +13,13 @@ ifndef GITHUB_TOKEN
 $(error GITHUB_TOKEN is not set)
 endif
 
-all: kind bootstrap sync test status ## Do all
+all: bootstrap sync test status ## Do all
 	echo ":: $@ :: "
 
 kind:
 	echo ":: $@ :: "
 	kind create cluster --config=config/kind.yaml || true
+	kubectl cluster-info
 	flux check --pre
 
 load_image: ## Load ci image under test
@@ -28,7 +29,7 @@ load_image: ## Load ci image under test
 
 status:
 	echo ":: $@ :: "
-	 flux get all --all-namespaces
+	flux get all --all-namespaces
 
 version:
 	echo ":: $@ :: "

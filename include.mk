@@ -3,11 +3,11 @@ TAIL := 20
 debug:
 	flux get images all -n static-sample
 	kubectl -n static-sample get deployment/$(APP) -o jsonpath="{$$.spec.template.spec.containers[0].image}"
-	#kubectl get GitRepository,Kustomization,HelmRelease,HelmChart,OCIRepository -A
 
 flux-debug:
-	kubectl -n flux-system get all
-	kubectl -n flux-system get Kustomization
+	kubectl get HelmRepository,GitRepository,Kustomization,HelmRelease,HelmChart,OCIRepository -A
+	#kubectl -n flux-system get all
+	#kubectl -n flux-system get Kustomization
 
 controller-logs:
 	kubectl -n flux-system logs deploy/source-controller | tail -n $(TAIL)

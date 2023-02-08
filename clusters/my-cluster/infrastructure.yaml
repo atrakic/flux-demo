@@ -7,7 +7,7 @@ spec:
   interval: 60m0s # detect drift and undo kubectl edits
   prune: true # remove stale resources from cluster
   wait: true # wait for all applied resources to become ready
-  timeout: 5m0s # give up waiting after three minutes
+  timeout: 10m0s # give up waiting after ten minutes
   dependsOn:
     - name: sources
   sourceRef:

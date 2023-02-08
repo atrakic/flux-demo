@@ -8,3 +8,4 @@ resources:
   - weave-gitops.yaml
   - external-dns.yaml
   - bitnami.yaml
+  - metrics-server.yml

@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: metrics-server
-      version: "6.x.x"
+      version: "*"
       sourceRef:
         kind: HelmRepository
-        name: bitnami
+        name: metrics-server
       interval: 12h
   values:
     extraArgs:

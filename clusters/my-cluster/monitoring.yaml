@@ -4,12 +4,13 @@ metadata:
   name: monitoring
   namespace: flux-system
 spec:
-  interval: 300s
+  interval: 60m0s # detect drift and undo kubectl edits
   dependsOn:
     - name: sources
   sourceRef:
     kind: GitRepository
     name: flux-system
   path: ./monitoring
-  prune: true
-  validation: client
+  prune: true # remove stale resources from cluster
+  wait: true # wait for all applied resources to become ready
+  timeout: 5m0s # give up waiting after three minutes

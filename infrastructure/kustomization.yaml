@@ -3,10 +3,10 @@ kind: Kustomization
 resources:
   - ingress-nginx
   - cert-manager
-## SKIP
+## SKIP ##
 # - sealed-secrets
 # - prometheus
-## TODO
+# - redis
 # - external-dns
 # - linkerd
 # - open-telemetry

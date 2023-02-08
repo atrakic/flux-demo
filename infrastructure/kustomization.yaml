@@ -4,7 +4,6 @@ resources:
   - ingress-nginx
   - cert-manager
 ## SKIP ##
-#  - metrics-server
 # - sealed-secrets
 # - prometheus
 # - redis

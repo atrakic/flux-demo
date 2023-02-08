@@ -13,7 +13,7 @@ ifndef GITHUB_TOKEN
 $(error GITHUB_TOKEN is not set)
 endif
 
-all: bootstrap sync test status ## Do all
+all: bootstrap sync status test ## Do all
 	echo ":: $@ :: "
 
 kind:
@@ -63,6 +63,7 @@ clean:
 test: ## Test app
 	echo ":: $@ :: "
 	kubectl wait --for=condition=Ready pods --timeout=300s -l "app=$(APP)" -n $(NS) --timeout=300s
+	kubectl --namespace $(NS) wait deployment/$(APP) --for condition=available
 	[ -f ./tests/test.sh ] && ./tests/test.sh $(APP).local
 
 help:  ## Display this help menu

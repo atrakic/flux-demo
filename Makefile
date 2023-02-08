@@ -30,6 +30,7 @@ load_image: ## Load ci image under test
 status:
 	echo ":: $@ :: "
 	flux get all --all-namespaces
+	helm list -A
 
 version:
 	echo ":: $@ :: "

@@ -47,3 +47,9 @@ jobs:
           kubectl -n flux-system logs deploy/source-controller
           kubectl -n flux-system logs deploy/kustomize-controller
           kubectl -n flux-system logs deploy/helm-controller
+          kubectl -n ${{ env.NS }} get all
+          kubectl -n ${{ env.NS }} describe deployment ${{ env.APP }}
+          kubectl -n ${{ env.NS }} logs -l app=${{ env.APP }} --all-containers=true
+        env:
+          APP: static-sample
+          NS: static-sample

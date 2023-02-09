@@ -22,10 +22,10 @@ else
 endif
 
 
-all: bootstrap sync status test ## Do all
+all: kind load_image bootstrap sync status test ## Do all
 	echo ":: $(green)$@$(reset) :: "
 
-kind:
+kind: ## Install kind
 	echo ":: $(green)$@$(reset) :: "
 	kind create cluster --config=config/kind.yaml || true
 	kubectl cluster-info
@@ -36,16 +36,16 @@ load_image: ## Load ci image under test
 	docker pull $(IMAGE)
 	kind load docker-image $(IMAGE)
 
-status:
+status: ## Print Flux status
 	echo ":: $(green)$@$(reset) :: "
 	flux get all --all-namespaces
 	helm list -A
 
-version:
+version: ## Print version
 	echo ":: $(green)$@$(reset) :: "
 	flux version
 
-bootstrap: kind load_image ## Flux bootstrap github repo
+bootstrap: ## Flux bootstrap github repo
 	echo ":: $(green)$@$(reset) :: "
 	flux bootstrap github \
 		--components-extra=image-reflector-controller,image-automation-controller \
@@ -58,18 +58,18 @@ bootstrap: kind load_image ## Flux bootstrap github repo
 	kubectl -n flux-system wait gitrepository/flux-system --for=condition=ready --timeout=1m
 	$(MAKE) version
 
-sync reconcile:
+sync reconcile: ## Sync
 	echo ":: $(green)$@$(reset) :: "
 	#flux reconcile kustomization flux-system --with-source
 	flux reconcile kustomization infrastructure --with-source
 	flux reconcile kustomization apps --with-source
 	flux get all --all-namespaces
 
-clean:
+clean: ## Clean up 
 	echo ":: $(green)$@$(reset) :: "
 	kind delete cluster
 
-test: ## Test app
+test: ## Test demo app
 	echo "::  $(green)$@$(reset) :: "
 	kubectl wait --for=condition=Ready pods --timeout=300s -l "app=$(APP)" -n $(NS) --timeout=300s
 	kubectl --namespace $(NS) wait deployment/$(APP) --for condition=available

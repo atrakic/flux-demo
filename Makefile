@@ -76,7 +76,10 @@ test: ## Test demo app
 	[ -f ./tests/test.sh ] && ./tests/test.sh $(APP).local
 
 release: ## Release (eg. V=0.0.1)
-	 @[ "$(V)" ] && read -p "Press enter to confirm and push tag v$(V) to origin, <Ctrl+C> to abort ..." && git tag v$(V) && git push origin v$(V)
+	 @[ "$(V)" ] \
+		 && read -p "Press enter to confirm and push tag v$(V) to origin, <Ctrl+C> to abort ..." \
+		 && git tag v$(V) -m "v$(V)" \
+		 && git push origin v$(V)
 
 help:  ## Display this help menu
 	echo ":: $(green)$@$(reset) :: "

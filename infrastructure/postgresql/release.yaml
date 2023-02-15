@@ -16,4 +16,8 @@ spec:
         namespace: flux-system
       interval: 12h
   # helm show values bitnami/postgresql
-  values: {}
+  values:
+    # global.storageClass:
+    global.postgresql.auth.username: demo
+    global.postgresql.auth.password: demo
+    global.postgresql.auth.database: demo

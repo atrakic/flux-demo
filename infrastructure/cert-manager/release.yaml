@@ -28,14 +28,14 @@ spec:
     keepHistory: false
   values:
     installCRDs: true
-    extraArgs:
-      - --dns01-recursive-nameservers=8.8.8.8:53,8.8.4.4:53
-      - --dns01-recursive-nameservers-only
-    podDnsPolicy: None
-    podDnsConfig:
-      nameservers:
-        - "8.8.8.8"
-        - "8.8.4.4"
+    #extraArgs:
+    #  - --dns01-recursive-nameservers=8.8.8.8:53,8.8.4.4:53
+    #  - --dns01-recursive-nameservers-only
+    #podDnsPolicy: None
+    #podDnsConfig:
+    #  nameservers:
+    #    - "8.8.8.8"
+    #    - "8.8.4.4"
     prometheus:
       enabled: true
       servicemonitor:

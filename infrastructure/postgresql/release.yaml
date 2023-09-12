@@ -1,0 +1,23 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: postgresql
+  namespace: flux-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: postgresql
+      version: "*"
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+      interval: 12h
+  # helm show values bitnami/postgresql
+  values:
+    # global.storageClass:
+    global.postgresql.auth.username: demo
+    global.postgresql.auth.password: demo
+    global.postgresql.auth.database: demo

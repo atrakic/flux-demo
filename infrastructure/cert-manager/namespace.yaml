@@ -4,4 +4,4 @@ kind: Namespace
 metadata:
   name: cert-manager
   labels:
-    toolkit.fluxcd.io/tenant: sre-team
+    kustomize.toolkit.fluxcd.io/prune: disabled

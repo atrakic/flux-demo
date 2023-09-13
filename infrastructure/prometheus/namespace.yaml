@@ -4,4 +4,4 @@ kind: Namespace
 metadata:
   name: monitoring
   labels:
-    toolkit.fluxcd.io/tenant: sre-team
+    kustomize.toolkit.fluxcd.io/prune: disabled

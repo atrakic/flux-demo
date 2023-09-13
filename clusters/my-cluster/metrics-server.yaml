@@ -3,6 +3,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: monitoring
+  labels:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
@@ -23,11 +25,15 @@ spec:
   chart:
     spec:
       chart: metrics-server
-      version: "*"
+      version: 3.11.0
       sourceRef:
         kind: HelmRepository
         name: metrics-server
-      interval: 12h
   values:
     args:
       - --kubelet-insecure-tls
+      - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+      - --kubelet-use-node-status-port
+      - --metric-resolution=15s
+    metrics:
+      enabled: true

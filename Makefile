@@ -5,8 +5,8 @@ GITHUB_USER ?= atrakic
 CLUSTER ?= my-cluster
 BRANCH ?= $(shell git branch --show-current)
 IMAGE := ghcr.io/atrakic/go-static-site:latest
-NS := static-sample
-APP := static-sample
+NS := static-site
+APP := static-site
 
 # Required by flux-cli
 ifndef GITHUB_TOKEN

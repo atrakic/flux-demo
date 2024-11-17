@@ -28,7 +28,6 @@ jobs:
 
       - name: Make all
         run: |
-          kubectl version
           export GITHUB_TOKEN=${{ secrets.PAT }}
           make all
 

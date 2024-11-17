@@ -23,7 +23,9 @@ jobs:
         with:
           config: config/kind.yaml
           cluster_name: kind
-          node_image: kindest/node:v1.31.0@sha256:53df588e04085fd41ae12de0c3fe4c72f7013bba32a20e7325357a1ac94ba865
+          version: "v0.23.0"
+          kubectl_version: "v1.31.0"
+          node_image: "kindest/node:v1.31.0"
           install_only: true # Using makefile target
 
       - name: Make all

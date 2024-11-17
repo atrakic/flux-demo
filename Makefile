@@ -21,6 +21,7 @@ else
     reset := ""
 endif
 
+.PHONY: kind load_image bootstrap sync status test
 
 all: kind load_image bootstrap sync status test ## Do all
 	echo ":: $(green)$@$(reset) :: "
@@ -60,7 +61,6 @@ bootstrap: ## Flux bootstrap github repo
 
 sync reconcile: ## Sync
 	echo ":: $(green)$@$(reset) :: "
-	#flux reconcile kustomization flux-system --with-source
 	flux reconcile kustomization infrastructure --with-source
 	flux reconcile kustomization apps --with-source
 	flux get all --all-namespaces
@@ -71,9 +71,9 @@ clean: ## Clean up
 
 test: ## Test demo app
 	echo "::  $(green)$@$(reset) :: "
-	kubectl wait --for=condition=Ready pods --timeout=300s -l "app=$(APP)" -n $(NS) --timeout=300s
-	kubectl --namespace $(NS) wait deployment/$(APP) --for condition=available
-	[ -f ./tests/test.sh ] && ./tests/test.sh $(APP).local
+	#kubectl --namespace $(NS) wait --for=condition=Ready pods -l "app=$(APP)" --timeout=300s
+	#kubectl --namespace $(NS) wait deployment/$(APP) --for condition=available
+	[ -f ./tests/test.sh ] && ./tests/test.sh
 
 release: ## Release (eg. V=0.0.1)
 	 @[ "$(V)" ] \

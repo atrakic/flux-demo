@@ -26,6 +26,7 @@ spec:
         enabled: true
       terminationGracePeriodSeconds: 0
       service:
+        # Required for kinD
         type: "NodePort"
       watchIngressWithoutClass: true
       # kinD

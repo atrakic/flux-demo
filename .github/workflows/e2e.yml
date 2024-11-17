@@ -2,6 +2,8 @@ name: e2e
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ '*' ]
 
 ## allow Flux to add deploy keys - https://github.com/atrakic/flux-demo/settings/keys
 permissions: write-all
@@ -17,7 +19,7 @@ jobs:
         uses: fluxcd/flux2/action@main
 
       - name: KinD
-        uses: helm/kind-action@v1.5.0
+        uses: helm/kind-action@v1.7.0
         with:
           config: config/kind.yaml
           cluster_name: kind

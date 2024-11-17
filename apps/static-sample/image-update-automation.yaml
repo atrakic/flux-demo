@@ -22,5 +22,5 @@ spec:
     name: flux-system
     namespace: flux-system
   update:
-    path: ./clusters/my-cluster
+    path: ./clusters/kind
     strategy: Setters

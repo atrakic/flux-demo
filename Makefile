@@ -2,7 +2,7 @@ MAKEFLAGS += --silent
 .DEFAULT_GOAL := help
 
 GITHUB_USER ?= atrakic
-CLUSTER ?= my-cluster
+CLUSTER ?= kind
 BRANCH ?= $(shell git branch --show-current)
 IMAGE := ghcr.io/atrakic/go-static-site:latest
 NS := static-site

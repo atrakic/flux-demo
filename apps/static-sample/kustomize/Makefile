@@ -11,5 +11,3 @@ all: clean
 
 clean:
 	rm -rf *.yaml *.yml
-
-

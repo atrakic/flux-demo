@@ -6,4 +6,4 @@ metadata:
   namespace: flux-system
 spec:
   image: ghcr.io/atrakic/go-static-site
-  interval: 30m0s
+  interval: 1m0s
